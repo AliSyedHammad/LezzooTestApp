@@ -2,31 +2,25 @@ const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
 const bodyParser = require('body-parser');
-const request = require('request');
-const { randomUUID } = require('crypto');
-const glob = require("glob");
 const dbUtils = require("../utils/db_utils");
 
-// const multer = require('multer');
-// const upload = multer({dest:__dirname + "/src/assets"});
 
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server, {
-    maxHttpBufferSize: 1e8, pingTimeout: 60000
-});
-const fs = require('fs');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 
-// Tell express to use the body-parser middleware and to not parse extended bodies
-app.use(express.urlencoded({ extended: false }));
+const cors = require('cors');
+app.use(cors());
 
-// 
 
-app.post('/fetchStores', (req, res) => {
-    console.log(req.body);
-    dbUtils.fetchStores(res);
+app.use(bodyParser.json({limit: '50mb', extended: true}));
+app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
+app.use(bodyParser.text({ limit: '200mb' }));
+
+
+app.get('/fetchStores', (req, res) => {
+    return dbUtils.fetchStores(res);
 })
 
 app.post('/insertStore', (req, res) => {
@@ -45,9 +39,11 @@ app.post('/updateStore', (req, res) => {
 
 
 
-app.post('/fetchCategories', (req, res) => {
-    console.log(req.body);
-    dbUtils.fetchCategories(res);
+app.get('/fetchCategories', (req, res) => {
+    if (req.query.idStores == null)
+        return dbUtils.fetchSpecificCategories(res);
+        
+    return dbUtils.fetchSpecificCategoriesName(req.query, res);
 })
 
 app.post('/insertCategory', (req, res) => {
@@ -66,19 +62,21 @@ app.post('/updateCategory', (req, res) => {
 
 
 
-app.post('/fetchProducts', (req, res) => {
-    console.log(req.body);
-    dbUtils.fetchProducts(res);
+app.get('/fetchProducts', (req, res) => {
+    if (req.query.idStores == null)
+        return dbUtils.fetchProducts(res);
+
+    return dbUtils.fetchSpecificProducts(req.query, res);
 })
 
-app.post('/insertProducts', (req, res) => {
+app.post('/insertProduct', (req, res) => {
     console.log(req.body);
     dbUtils.insertProduct(req.body);
 
     res.send(200);
 })
 
-app.post('/updateProducts', (req, res) => {
+app.post('/updateProduct', (req, res) => {
     console.log(req.body);
     dbUtils.updateProduct(req.body);
 
