@@ -343,7 +343,7 @@ const StorePage = () => {
                                                             {product.Name}
                                                         </TableCell>
                                                         <TableCell align="center" padding="none">
-                                                            {product.Price}
+                                                            ${product.Price}
                                                         </TableCell>
                                                         <TableCell align="center" padding="none">
                                                             <img
