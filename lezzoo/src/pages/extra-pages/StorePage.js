@@ -274,65 +274,73 @@ const StorePage = () => {
                                 <DialogContentText style={{ fontSize: 36 }}>{category.Name}</DialogContentText>
                                 <img src={category.Image} style={{ width: 50, height: 50, borderRadius: 10 }} alt="" />
                             </div>
-                            {category.products.map((product) => (
-                                // table with headings product name, price, image
-                                <TableContainer
+                            <TableContainer
+                                sx={{
+                                    width: '100%',
+                                    overflowX: 'auto',
+                                    position: 'relative',
+                                    display: 'block',
+                                    maxWidth: '100%',
+                                    '& td, & th': { whiteSpace: 'nowrap' }
+                                }}
+                            >
+                                <Table
+                                    aria-labelledby="tableTitle"
                                     sx={{
-                                        width: '100%',
-                                        overflowX: 'auto',
-                                        position: 'relative',
-                                        display: 'block',
-                                        maxWidth: '100%',
-                                        '& td, & th': { whiteSpace: 'nowrap' }
+                                        '& .MuiTableCell-root:first-child': {
+                                            pl: 2
+                                        },
+                                        '& .MuiTableCell-root:last-child': {
+                                            pr: 3
+                                        }
                                     }}
                                 >
-                                    <Table
-                                        aria-labelledby="tableTitle"
-                                        sx={{
-                                            '& .MuiTableCell-root:first-child': {
-                                                pl: 2
-                                            },
-                                            '& .MuiTableCell-root:last-child': {
-                                                pr: 3
-                                            }
-                                        }}
-                                    >
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell align="center" padding="none">
-                                                    {'Name'}
-                                                </TableCell>
-                                                <TableCell align="center" padding="none">
-                                                    {'Price'}
-                                                </TableCell>
-                                                <TableCell align="center" padding="none">
-                                                    {'Image'}
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableHead>
+                                    {category.products.length > 0 ? (
+                                        <>
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell align="center" padding="none">
+                                                        {'Name'}
+                                                    </TableCell>
+                                                    <TableCell align="center" padding="none">
+                                                        {'Price'}
+                                                    </TableCell>
+                                                    <TableCell align="center" padding="none">
+                                                        {'Image'}
+                                                    </TableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                                {category.products.map((product) => (
+                                                    // table with headings product name, price, image
 
-                                        <TableBody>
-                                            <TableRow
-                                                hover
-                                                tabIndex={-1}
-                                                key={product.Name}
-                                                role="checkbox"
-                                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                            >
-                                                <TableCell align="center" padding="none">
-                                                    {product.Name}
-                                                </TableCell>
-                                                <TableCell align="center" padding="none">
-                                                    {product.Price}
-                                                </TableCell>
-                                                <TableCell align="center" padding="none">
-                                                    <img src={product.Image} style={{ width: 50, height: 50, borderRadius: 10 }} alt="" />
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableBody>
-                                    </Table>
-                                </TableContainer>
-                            ))}
+                                                    <TableRow
+                                                        hover
+                                                        tabIndex={-1}
+                                                        key={product.Name}
+                                                        role="checkbox"
+                                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                    >
+                                                        <TableCell align="center" padding="none">
+                                                            {product.Name}
+                                                        </TableCell>
+                                                        <TableCell align="center" padding="none">
+                                                            {product.Price}
+                                                        </TableCell>
+                                                        <TableCell align="center" padding="none">
+                                                            <img
+                                                                src={product.Image}
+                                                                style={{ width: 50, height: 50, borderRadius: 10 }}
+                                                                alt=""
+                                                            />
+                                                        </TableCell>
+                                                    </TableRow>
+                                                ))}
+                                            </TableBody>
+                                        </>
+                                    ) : null}
+                                </Table>
+                            </TableContainer>
                         </div>
                     ))}
                 </DialogContent>
