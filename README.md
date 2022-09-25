@@ -17,6 +17,13 @@ yarn start
 
 Now open your browser and navigate to the url `localhost:3000/free`. The application will be usable.
 
+## Instructions
+- The Main screen lists all the stores
+- The 3 icons in the 'Actions' column perform the 'Add Category', 'Add Product', and 'View Store' actions respectively.
+  - Press the 'Add Category' button, type a category and add an image in the dialogue box to add a new category to a store.
+  - Press the 'Add Product' button, choose a category to add a product to, enter the product price and a price, and upload an image to add a product to a category in a store.
+  - Press the 'View Store' button to view all the categories and the respective products in them. Click on the close at the bottom right of the screen to navigate back to the home screen.
+
 ## Room for Improvement
 1) The logos/ pictures can be uploaded on a cloud sever such as Amazon S3, and we can store URL of the server and load the images from there.
 2) The UI of the app can be improved significantly. The current UI is made under time constraints and is definitely not the most improved one.
