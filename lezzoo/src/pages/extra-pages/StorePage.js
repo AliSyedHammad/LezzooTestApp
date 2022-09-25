@@ -59,7 +59,9 @@ const StorePage = () => {
         setSelectedCategory(event.target.value);
     };
 
-    const handleCloseAddStore = async () => {
+    const handleCloseAddStore = async (event, reason) => {
+        if (reason && reason == 'backdropClick') return;
+
         setOpenAddStore(false);
 
         const storeName = document.getElementById('store_name').value;
@@ -80,7 +82,9 @@ const StorePage = () => {
         setDirtyCache(true);
     };
 
-    const handleCloseAddProduct = async () => {
+    const handleCloseAddProduct = async (event, reason) => {
+        if (reason && reason == 'backdropClick') return;
+
         setOpenAddProduct(false);
         const productName = document.getElementById('product_name').value;
         const productPrice = document.getElementById('product_price').value;
@@ -111,7 +115,9 @@ const StorePage = () => {
 
     // TODO store_info = [ {categ_name: xyz, categ_img: xyz, categ_products: [{prod_name: xyz, prod_img: xyz, prod_price: xyz, prod_id: xyz}]} ]
 
-    const handleCloseAddCategory = async () => {
+    const handleCloseAddCategory = async (event, reason) => {
+        if (reason && reason == 'backdropClick') return;
+
         setOpenAddCategory(false);
         const categoryName = document.getElementById('category_name').value;
         const categoryImg = await imgToBase64('category_image');
