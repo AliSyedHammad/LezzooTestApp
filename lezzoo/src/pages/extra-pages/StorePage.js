@@ -62,6 +62,8 @@ const StorePage = () => {
     const handleCloseAddStore = async (event, reason) => {
         if (reason && reason == 'backdropClick') return;
 
+        if (document.getElementById('store_name').value == '' || document.getElementById('store_logo').files.length == 0) return;
+
         setOpenAddStore(false);
 
         const storeName = document.getElementById('store_name').value;
@@ -84,6 +86,14 @@ const StorePage = () => {
 
     const handleCloseAddProduct = async (event, reason) => {
         if (reason && reason == 'backdropClick') return;
+
+        if (
+            document.getElementById('product_name').value == '' ||
+            document.getElementById('product_price').value == '' ||
+            selectedCategory == '' ||
+            document.getElementById('product_image').files.length == 0
+        )
+            return;
 
         setOpenAddProduct(false);
         const productName = document.getElementById('product_name').value;
@@ -117,6 +127,8 @@ const StorePage = () => {
 
     const handleCloseAddCategory = async (event, reason) => {
         if (reason && reason == 'backdropClick') return;
+
+        if (document.getElementById('category_name').value == '' || document.getElementById('category_image').files.length == 0) return;
 
         setOpenAddCategory(false);
         const categoryName = document.getElementById('category_name').value;
