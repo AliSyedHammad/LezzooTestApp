@@ -1,8 +1,14 @@
 // material-ui
 import {
-    Typography, Button, Dialog, DialogTitle, DialogActions, DialogContent, 
-    DialogContentText, 
-    Box, TextField,
+    Typography,
+    Button,
+    Dialog,
+    DialogTitle,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    Box,
+    TextField,
     InputLabel,
     MenuItem,
     Table,
@@ -24,15 +30,15 @@ async function imgToBase64(img_id) {
     try {
         const storeImage = document.getElementById(img_id).files[0];
         const imgURL = await fetch(URL.createObjectURL(storeImage));
-        const blob = await imgURL.blob()
+        const blob = await imgURL.blob();
         return new Promise((resolve, _) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
-        reader.readAsDataURL(blob);
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.readAsDataURL(blob);
         });
     } catch (error) {
         console.log(error);
-        reject("");
+        reject('');
     }
 }
 
@@ -45,14 +51,13 @@ const StorePage = () => {
     const [storeInfo, setStoreInfo] = useState([]);
     const [dirtyCache, setDirtyCache] = useState(true);
     const [storeId, setStoreId] = useState(null);
-    const [storeName, setStoreName] = useState("");
+    const [storeName, setStoreName] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
     const [options, setOptions] = useState([]);
 
-
     const handleCategoryDropdown = (event) => {
         setSelectedCategory(event.target.value);
-      };
+    };
 
     const handleCloseAddStore = async () => {
         setOpenAddStore(false);
@@ -126,7 +131,7 @@ const StorePage = () => {
 
     const handleOpenAddProduct = async (storeid) => {
         const category_data = await fetch(`http://localhost:3002/fetchCategories?idStores=${storeid}`, {
-            method: 'GET',
+            method: 'GET'
         });
         const category_json = await category_data.json();
         setOptions(category_json);
@@ -135,7 +140,7 @@ const StorePage = () => {
 
     const handleStoreInfoOpen = async (storeid, storeName) => {
         const store_data = await fetch(`http://localhost:3002/fetchProducts?idStores=${storeid}`, {
-            method: 'GET',
+            method: 'GET'
         });
         const store_json = await store_data.json();
         console.log(store_json);
@@ -145,7 +150,6 @@ const StorePage = () => {
         setStoreName(storeName);
     };
 
- 
     return (
         <>
             <div style={{ display: 'flex', justifyContent: 'flex-end', paddingBottom: 20 }}>
@@ -176,7 +180,7 @@ const StorePage = () => {
             <Dialog open={openAddStore} onClose={handleCloseAddStore} id="store_form">
                 <DialogTitle>Add Store</DialogTitle>
                 <DialogContent>
-                    <DialogContentText >Add your store information here.</DialogContentText>
+                    <DialogContentText>Add your store information here.</DialogContentText>
                     <TextField margin="dense" id="store_name" label="Store Name" type="text" variant="standard" />
                     {/* Upload Button */}
                     <Box sx={{ mt: 3 }}>
@@ -196,7 +200,7 @@ const StorePage = () => {
             <Dialog open={openAddProduct} onClose={handleCloseAddProduct}>
                 <DialogTitle>Add Product</DialogTitle>
                 <DialogContent>
-                    <DialogContentText style={{paddingBottom: 15}}>Add your product information here.</DialogContentText>
+                    <DialogContentText style={{ paddingBottom: 15 }}>Add your product information here.</DialogContentText>
 
                     <FormControl fullWidth>
                         <InputLabel id="inp">Category</InputLabel>
@@ -208,13 +212,13 @@ const StorePage = () => {
                             onChange={handleCategoryDropdown}
                         >
                             {options.map((option) => (
-                                <MenuItem key={option} value={option}>{option}</MenuItem>
+                                <MenuItem key={option} value={option}>
+                                    {option}
+                                </MenuItem>
                             ))}
-
                         </Select>
                     </FormControl>
 
-                    
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         <TextField margin="dense" id="product_name" label="Product Name" type="text" variant="standard" />
                         <TextField margin="dense" id="product_price" label="Product Price" type="text" variant="standard" />
@@ -257,10 +261,18 @@ const StorePage = () => {
                 <DialogTitle>{`${storeName} Store Info`}</DialogTitle>
                 <DialogContent>
                     {storeInfo.map((category) => (
-                        <div style={{ display:'flex', flexDirection: 'column', paddingBottom: 20}}>
-                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', paddingBottom: 10 }}>
-                            <DialogContentText style={{ fontSize: 36 }}>{category.Name}</DialogContentText>
-                            <img src={category.Image} style={{ width: 50, height: 50, borderRadius: 10 }} />
+                        <div style={{ display: 'flex', flexDirection: 'column', paddingBottom: 20 }}>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-evenly',
+                                    alignItems: 'center',
+                                    paddingBottom: 10
+                                }}
+                            >
+                                <DialogContentText style={{ fontSize: 36 }}>{category.Name}</DialogContentText>
+                                <img src={category.Image} style={{ width: 50, height: 50, borderRadius: 10 }} alt="" />
                             </div>
                             {category.products.map((product) => (
                                 // table with headings product name, price, image
@@ -272,7 +284,8 @@ const StorePage = () => {
                                         display: 'block',
                                         maxWidth: '100%',
                                         '& td, & th': { whiteSpace: 'nowrap' }
-                                    }}>
+                                    }}
+                                >
                                     <Table
                                         aria-labelledby="tableTitle"
                                         sx={{
@@ -286,28 +299,39 @@ const StorePage = () => {
                                     >
                                         <TableHead>
                                             <TableRow>
-                                                <TableCell align='center' padding='none' >{'Name'}</TableCell>
-                                                <TableCell align='center' padding='none' >{'Price'}</TableCell>
-                                                <TableCell align='center' padding='none' >{'Image'}</TableCell>
+                                                <TableCell align="center" padding="none">
+                                                    {'Name'}
+                                                </TableCell>
+                                                <TableCell align="center" padding="none">
+                                                    {'Price'}
+                                                </TableCell>
+                                                <TableCell align="center" padding="none">
+                                                    {'Image'}
+                                                </TableCell>
                                             </TableRow>
                                         </TableHead>
-                                    
-                                    <TableBody>
-                                        <TableRow
-                                            hover
-                                            tabIndex={-1}
-                                            key={product.Name}
-                                            role="checkbox"
-                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                        >
-                                            <TableCell align='center' padding='none' >{product.Name}</TableCell>
-                                            <TableCell align='center' padding='none' >{product.Price}</TableCell>
-                                            <TableCell align='center' padding='none' ><img src={product.Image} style={{ width: 50, height: 50, borderRadius: 10 }} /></TableCell>
-                                        </TableRow>
-                                    </TableBody>
+
+                                        <TableBody>
+                                            <TableRow
+                                                hover
+                                                tabIndex={-1}
+                                                key={product.Name}
+                                                role="checkbox"
+                                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                            >
+                                                <TableCell align="center" padding="none">
+                                                    {product.Name}
+                                                </TableCell>
+                                                <TableCell align="center" padding="none">
+                                                    {product.Price}
+                                                </TableCell>
+                                                <TableCell align="center" padding="none">
+                                                    <img src={product.Image} style={{ width: 50, height: 50, borderRadius: 10 }} alt="" />
+                                                </TableCell>
+                                            </TableRow>
+                                        </TableBody>
                                     </Table>
                                 </TableContainer>
-
                             ))}
                         </div>
                     ))}

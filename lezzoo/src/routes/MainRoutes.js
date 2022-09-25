@@ -22,7 +22,7 @@ const MainRoutes = {
         {
             path: '/',
             element: <StorePage />
-        },
+        }
     ]
 };
 

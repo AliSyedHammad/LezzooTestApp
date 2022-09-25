@@ -15,8 +15,7 @@ const DrawerHeader = ({ open }) => {
 
     return (
         // only available in paid version
-        <DrawerHeaderStyled theme={theme} open={open}>
-        </DrawerHeaderStyled>
+        <DrawerHeaderStyled theme={theme} open={open}></DrawerHeaderStyled>
     );
 };
 

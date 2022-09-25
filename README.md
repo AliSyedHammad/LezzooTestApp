@@ -7,12 +7,10 @@ mysql> source ./lezzoodbs.sql
 Then to run the backend server, navigate to `Lezzoo_Backend` and then run the following commands:
 ```
 npm i
-npm start
+node .\src\api\server.js
 ```
 Now to run the frontend application, navigate to the `lezzoo` and then run the following commands:
 ```
-npm i
-npm audit fix
 yarn
 yarn start
 ```

@@ -138,7 +138,8 @@ export default function StoreTable({ dirtyCache, setDirtyCache, showProductDialo
             .then((response) => response.json())
             .then((data) => {
                 setRows(data);
-            }).then(() => setDirtyCache(false));
+            })
+            .then(() => setDirtyCache(false));
     }, [dirtyCache]);
 
     const isSelected = (idStores) => selected.indexOf(idStores) !== -1;
@@ -188,7 +189,7 @@ export default function StoreTable({ dirtyCache, setDirtyCache, showProductDialo
                                         </TableCell>
                                         <TableCell align="left">{row.Name}</TableCell>
                                         <TableCell align="center">
-                                            { <img src={row.Logo} alt="Logo" width="50" height="50" style={{borderRadius: 5}}/> }
+                                            {<img src={row.Logo} alt="Logo" width="50" height="50" style={{ borderRadius: 5 }} />}
                                         </TableCell>
 
                                         {/* 3 icon action buttons: addCategory, addProducttoCategory, ShowAllProducts */}
